@@ -34,14 +34,7 @@
 +(void)presentToControll:(NSString *)className
     withPropertyValueDic:(NSMutableDictionary *)dic;
 
-/**  退出登录
- * @param className  登录界面的类名
- * @param navClassName  导航控制器的类名
- */
-+(void)loginOutWithLoginClass:(NSString *)className
-                     withNavC:(NSString *)navClassName;
-
-/**  退出登录
+/** 
  * @return UIViewController  当前根控制器
  */
 + (UIViewController *)topViewController;
