@@ -171,62 +171,6 @@
     [[self topViewController].navigationController presentViewController:nextVC animated:YES completion:nil];
 }
 
-/**  退出登录
- * @param className  登录界面的类名
- * @param navClassName  导航控制器的类名
- */
-
-+(void)loginOutWithLoginClass:(NSString *)className withNavC:(NSString *)navClassName
-{
-    //根据字符串创建类
-    const char *class = [className cStringUsingEncoding:NSASCIIStringEncoding];
-    //根据类名获取类
-    Class toClass = objc_getClass(class);
-    
-    //根据字符串创建类
-    const char *nav = [navClassName cStringUsingEncoding:NSASCIIStringEncoding];
-    //根据类名获取类
-    Class navClass = objc_getClass(nav);
-    if (!toClass||!navClass) {
-#ifdef DEBUG
-        //传参数类不存在不做跳转，并弹出提示
-        UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"提示" message:@"跳转的界面还未创建" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [alert dismissViewControllerAnimated:YES completion:nil];
-            
-        });
-        
-        return;
-#else
-        return;
-        
-#endif
-    }
-    //创建对象(写到这里已经可以进行随机页面跳转了)
-    id nextVC = [[toClass alloc] init];
-    id navC = [[navClass alloc] initWithRootViewController:nextVC];
-    
-    if ([[chiveDataManager sharedChive] RemoveFileWithPath:@"userInfo"]) {
-        
-        [UIApplication sharedApplication].keyWindow.rootViewController = navC;
-        
-        [[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
-        
-    }else{
-        UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"提示" message:@"退出登录失败" preferredStyle:UIAlertControllerStyleAlert];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [alert dismissViewControllerAnimated:YES completion:nil];
-        });
-        
-    }
-}
-
-
 /**
  *  检测对象是否存在该属性
  */
