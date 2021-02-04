@@ -7,36 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+NS_ASSUME_NONNULL_BEGIN
 
-@interface Mediator : NSObject
-
-/**  push有参数跳转界面
- * @param className  要push的界面类名
+@interface MediatorManager : NSObject
+/*
+    初始化单例
  */
-+(void)pushToControll:(NSString *)className;
-
++ (MediatorManager *_Nonnull)sharedInstence;
 /**  push有参数跳转界面
  * @param className  要push的界面类名
  * @param dic        界面所需参数字典
  */
-+(void)pushToControll:(NSString *)className
- withPropertyValueDic:(NSMutableDictionary *)dic;
-
-/**  present无参数跳转界面
- * @param className  要present的界面类名
- */
-+(void)presentToControll:(NSString *)className;
-
+-(void)pushViewController:(NSString *_Nonnull)className
+ withPropertyValueDic:(NSMutableDictionary *_Nullable)dic animated:(BOOL)animated;
 /**  present有参数跳转界面
  * @param className  要present的界面类名
  * @param dic        界面所需参数字典
  */
-+(void)presentToControll:(NSString *)className
-    withPropertyValueDic:(NSMutableDictionary *)dic;
-
-/** 
+-(void)presentiewController:(NSString *_Nonnull)className
+    withPropertyValueDic:(NSMutableDictionary *_Nullable)dic animated:(BOOL)animated;
+/**
  * @return UIViewController  当前根控制器
  */
-+ (UIViewController *)topViewController;
+-(UIViewController *_Nonnull)topViewController;
 
 @end
+
+NS_ASSUME_NONNULL_END
